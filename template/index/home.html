@@ -1,0 +1,101 @@
+<div class="page_function">
+  <div class="info">
+    <h3>管理首页</h3>
+    <small><font color="#333">欢迎使用 媒介匣网站管理系统</small> </font></div>
+  <div class="tip">{$user.user}&nbsp;&nbsp;您等当前登录时间为：{$php( echo date('Y-m-d H:i:s',$user['logintime']))}&nbsp;&nbsp;登录IP为: {$user.ip}</div>
+<!--[if lt IE 8]> 
+<div class="index_tip"><p>您正在使用IE6或IE7为了您更好的体验，请升级浏览器至IE8以上或者更换其他浏览器<a href="http://www.microsoft.com/china/windows/internet-explorer/" target="_blank">Internet Explorer 8</a> 其他浏览器: 
+<a href="http://www.mozillaonline.com/">Firefox</a> / <a href="http://www.google.com/chrome/?hl=zh-CN">Chrome</a> / <a href="http://www.apple.com.cn/safari/">Safari</a> / <a href="http://www.operachina.com/">Opera</a></p></div>
+<![endif]-->
+</div>
+<div class="page_main">
+<h3>基本信息</h3>
+  <div class="page_table table_list">
+    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="120">程序版本: </td>
+        <td width="250">{$config.ver_name} {$config.ver}</td>
+        <td width="120">服务器时间: </td>
+        <td><?php echo date("Y-m-d G:i T",time());  ?></td>
+      </tr>
+      <tr>
+        <td width="120">当前模板: </td>
+        <td width="250">{$config_array['TPL_TEMPLATE_PATH']}</td>
+        <td width="120">伪静态: </td>
+        <td><?php if($config_array['URL_REWRITE_ON']){echo '<font color=green>已开启</font>';} else {echo '<font color=red>未开启</font>';} ?></td>
+      </tr>
+      <tr>
+        <td width="120">缓存状态: </td>
+        <td width="250">
+        <?php if($config_array['TPL_CACHE_ON']){echo '<font title="已开启" color=green>模板</font>';} else {echo '<font  title="未开启" color=red>模板</font>';} ?>
+         &nbsp;&nbsp;
+        <?php if($config_array['DB_CACHE_ON']){echo '<font title="已开启" color=green>数据</font>';} else {echo '<font  title="未开启" color=red>数据</font>';} ?>
+        &nbsp;&nbsp;
+        <?php if($config_array['HTML_CACHE_ON']){echo '<font title="已开启" color=green>静态</font>';} else {echo '<font  title="未开启" color=red>静态</font>';} ?>
+        </td>
+        <td width="120">插件数量: </td>
+        <td>{$plugin_count}</td>
+      </tr>
+      <tr>
+        <td width="120">栏目数: </td>
+        <td width="250">{$category_count}</td>
+        <td width="120">内容数: </td>
+        <td>{$content_count}</td>
+      </tr>
+      <tr>
+        <td width="120">TAG数: </td>
+        <td width="250">{$tags_count}</td>
+        <td width="120">附件数: </td>
+        <td>{$upload_count}</td>
+      </tr>
+      <tr>
+        <td width="120">实用工具: </td>
+        <td colspan="3"><a href="javascript:;" onclick="system()">环境信息</a>  &nbsp;&nbsp; <a href="javascript:;" onclick="bom()">BOM清除</a></td>
+      </tr>
+      
+    </table>
+  </div>
+  <div class="page_ad">
+      <div class="page_ad_left">
+        <h1>服务须知：</h1>
+        <div>
+          <span>网站客服热线：0311-85397611</span>
+          <span>网站客服QQ ：1787892559</span>
+          <span>咨询时间：工作日 9:00~18:00</span>
+          <div class="qq"><a href="tencent://message/?uin=1787892559&Site=媒介匣&Menu=yes"><img src="/public/images/mei_qq.jpg" alt=""></a></div>
+        </div>
+        <p>公告：<br/>
+因公司统一业务品牌、整合发展需要，原石家庄沁业网络科技有限公司所有业务，整体并入河北红燊科技有限公司，注册品牌为：媒介匣www.meijiexia.com，由于只是公司抬头变化，因此不会影响与您的业务合作。因抬头变化带来的不变，敬请谅解！
+        </p>
+      </div>
+      <div class="page_ad_right"><a href="http://www.meijiexia.com" target="_blank"><img src="/public/images/mei_ad.jpg" alt=""></a></div>
+  </div>
+</div>
+<script>
+function system() {
+	urldialog({
+	title:'环境信息',
+	url:'__URL__/tool_system'
+	});
+};
+function authorize() {
+	$('#authorize').html('获取中，请稍候...');
+	ajaxpost_w({
+		url:"__APP__/upgrade/authorize",
+		tip:1,
+		success:function(msg){
+			$('#authorize').html(msg);
+		},
+		failure:function(msg){
+			$('#authorize').html(msg);
+		}
+	});
+};
+function bom() {
+	ajaxpost({
+		name:'本操作可能需要一些时间，请确认清除BOM！',
+		url:"__URL__/tool_bom",
+		tip:1
+	});
+};
+</script>
